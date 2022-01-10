@@ -1,0 +1,11 @@
+ReportsTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ids-table-serverless
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: vehicleId
+        AttributeType: S
+    KeySchema:
+      - AttributeName: vehicleId
+        KeyType: HASH

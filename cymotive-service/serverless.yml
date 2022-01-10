@@ -14,11 +14,16 @@ resources:
   Resources:
     ReportsBucket: ${file(resources/ReportsBucket.yml):ReportsBucket}
     ReportsBucketPolicy: ${file(resources/ReportsBucket.yml):ReportsBucketPolicy}
+    ReportsTable: ${file(resources/ReportsTable.yml):ReportsTable}
     PorterRole: ${file(iam/PorterRole.yml):PorterRole}
+    IngestRole: ${file(iam/IngestRole.yml):IngestRole}
   Outputs:
     ReportsBucket:
       Value:
         Ref: ReportsBucket
+    ReportsTable:
+      Value:
+        Ref: ReportsTable
 
 functions:
   porter:
@@ -31,11 +36,26 @@ functions:
       - http:
           method: POST
           path: /
+  ingest:
+    handler: src/handlers/ingest.handler
+    environment:
+      TABLE_NAME: ${self:custom.ReportsTable.name}
+    role: IngestRole
+    events:
+      - s3:
+          bucket: ${self:custom.ReportsBucket.name}
+          event: s3:ObjectCreated:*
+          existing: true
+
+ 
 
 custom:
   ReportsBucket:
     name: !Ref ReportsBucket
     arn: !GetAtt ReportsBucket.Arn
+  ReportsTable:
+    name: !Ref ReportsTable
+    arn: !GetAtt ReportsTable.Arn
   bundle:
     linting: false
     externals:
