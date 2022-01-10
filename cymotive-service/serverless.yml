@@ -17,6 +17,7 @@ resources:
     ReportsTable: ${file(resources/ReportsTable.yml):ReportsTable}
     PorterRole: ${file(iam/PorterRole.yml):PorterRole}
     IngestRole: ${file(iam/IngestRole.yml):IngestRole}
+    AnalyzerRole: ${file(iam/AnalyzerRole.yml):AnalyzerRole}
   Outputs:
     ReportsBucket:
       Value:
@@ -46,6 +47,21 @@ functions:
           bucket: ${self:custom.ReportsBucket.name}
           event: s3:ObjectCreated:*
           existing: true
+  analyzer:
+    handler: src/handlers/analyzer.handler
+    environment:
+      TABLE_NAME: ${self:custom.ReportsTable.name}
+    role: AnalyzerRole
+    events:
+      - http:
+          method: GET
+          path: /numberOfReports
+      - http:
+          method: GET
+          path: /numberOfVehicles
+      - http:
+          method: GET
+          path: /numberOfAnomalies
 
  
 
