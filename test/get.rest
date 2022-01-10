@@ -1,12 +1,12 @@
-GET https://jdktqh3fy9.execute-api.eu-west-1.amazonaws.com/api/numberOfReports HTTP/1.1
+GET https://7233um07nb.execute-api.eu-west-1.amazonaws.com/api/numberOfReports HTTP/1.1
 content-type: application/json
 
 ###
 
-GET https://jdktqh3fy9.execute-api.eu-west-1.amazonaws.com/api/numberOfVehicles HTTP/1.1
+GET https://7233um07nb.execute-api.eu-west-1.amazonaws.com/api/numberOfVehicles HTTP/1.1
 content-type: application/json
 
 ###
 
-GET https://jdktqh3fy9.execute-api.eu-west-1.amazonaws.com/api/numberOfAnomalies HTTP/1.1
+GET https://7233um07nb.execute-api.eu-west-1.amazonaws.com/api/numberOfAnomalies HTTP/1.1
 content-type: application/json
