@@ -1,0 +1,35 @@
+POST https://v19uozta45.execute-api.eu-west-1.amazonaws.com/api/ HTTP/1.1
+content-type: application/json
+
+{
+    "report": {
+    "vehicleId": "e252d236-a830-5438-88e3-420aff355d2b",
+    "label": "VW Polo",
+    "modifiedDate": "2075-04-29T03:58:11.803Z",
+    "manufacturerType": "VW",
+    "manufacturerTitle": "Polo",
+    "signalsPerMinute": {
+      "infotainment": {
+        "canId": 11,
+        "busId": 50,
+        "acceptableMinValue": 2,
+        "acceptableMaxValue": 17,
+        "sum": 12
+      },
+      "windows": {
+        "canId": 46,
+        "busId": 12,
+        "acceptableMinValue": 522,
+        "acceptableMaxValue": 578,
+        "sum": 580
+      },
+      "airBag": {
+        "canId": 80,
+        "busId": 6,
+        "acceptableMinValue": 3,
+        "acceptableMaxValue": 8,
+        "sum": 6
+      }
+    }
+    } 
+}

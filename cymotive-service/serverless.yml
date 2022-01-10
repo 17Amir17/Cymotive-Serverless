@@ -1,0 +1,42 @@
+service: cymotive-service
+
+plugins:
+  - serverless-bundle
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: api
+  region: eu-west-1
+
+resources:
+  Resources:
+    ReportsBucket: ${file(resources/ReportsBucket.yml):ReportsBucket}
+    ReportsBucketPolicy: ${file(resources/ReportsBucket.yml):ReportsBucketPolicy}
+    PorterRole: ${file(iam/PorterRole.yml):PorterRole}
+  Outputs:
+    ReportsBucket:
+      Value:
+        Ref: ReportsBucket
+
+functions:
+  porter:
+    handler: src/handlers/porter.handler
+    environment:
+      BUCKET_NAME: ${self:custom.ReportsBucket.name}
+      BUCKET_ARN: ${self:custom.ReportsBucket.arn}
+    role: PorterRole
+    events:
+      - http:
+          method: POST
+          path: /
+
+custom:
+  ReportsBucket:
+    name: !Ref ReportsBucket
+    arn: !GetAtt ReportsBucket.Arn
+  bundle:
+    linting: false
+    externals:
+      - uuid
