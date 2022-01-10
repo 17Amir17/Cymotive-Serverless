@@ -23,9 +23,12 @@ ReportsBucketPolicy:
     Bucket: !Ref ReportsBucket
     PolicyDocument:
       Statement:
-        - Sid: PublicRead
+        - Sid: OnlyLambdas
           Effect: Allow
-          Principal: '*'
+          Principal: 
+            AWS:
+              - ${self:custom.PorterRole.arn}
+              - ${self:custom.IngestRole.arn}
           Action:
             - s3:GetObject
             - s3:PutObject

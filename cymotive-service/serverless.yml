@@ -13,11 +13,11 @@ provider:
 resources:
   Resources:
     ReportsBucket: ${file(resources/ReportsBucket.yml):ReportsBucket}
-    ReportsBucketPolicy: ${file(resources/ReportsBucket.yml):ReportsBucketPolicy}
     ReportsTable: ${file(resources/ReportsTable.yml):ReportsTable}
     PorterRole: ${file(iam/PorterRole.yml):PorterRole}
     IngestRole: ${file(iam/IngestRole.yml):IngestRole}
     AnalyzerRole: ${file(iam/AnalyzerRole.yml):AnalyzerRole}
+    ReportsBucketPolicy: ${file(resources/ReportsBucket.yml):ReportsBucketPolicy}
   Outputs:
     ReportsBucket:
       Value:
@@ -72,6 +72,10 @@ custom:
   ReportsTable:
     name: !Ref ReportsTable
     arn: !GetAtt ReportsTable.Arn
+  PorterRole:
+    arn: !GetAtt PorterRole.Arn
+  IngestRole:
+    arn: !GetAtt IngestRole.Arn
   bundle:
     linting: false
     externals:
